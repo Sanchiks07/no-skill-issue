@@ -4,8 +4,324 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>No Skill Issue</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            background-size: 400% 400%;
+            opacity: 0.15;
+            animation: gradientShift 15s ease infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 4em;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
+            animation: titlePulse 2s ease-in-out infinite;
+            cursor: pointer;
+            letter-spacing: 3px;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(1deg); }
+        }
+
+        h1:hover {
+            animation: titleGlitch 0.5s ease-in-out;
+        }
+
+        @keyframes titleGlitch {
+            0%, 100% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff; }
+            25% { text-shadow: 10px 0 20px #ff0080, -10px 0 40px #00ffff; }
+            50% { text-shadow: -10px 0 20px #ff00ff, 10px 0 40px #0080ff; }
+            75% { text-shadow: 5px 0 20px #ffff00, -5px 0 40px #00ffff; }
+        }
+
+        h2 {
+            color: #00ffff;
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 400;
+            animation: float 3s ease-in-out infinite;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(15, 20, 50, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1);
+            border: 2px solid transparent;
+            animation: borderGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(255, 0, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 60px rgba(0, 255, 255, 0.5), inset 0 0 30px rgba(255, 0, 255, 0.2); }
+        }
+
+        ol {
+            list-style-position: outside;
+            line-height: 2;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 25px;
+            padding: 20px 20px 20px 25px;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.15) 0%, rgba(0, 255, 255, 0.15) 100%);
+            border-left: 5px solid #00ffff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            color: #ffffff;
+            overflow: hidden;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        li:hover::before {
+            left: 100%;
+        }
+
+        li:hover {
+            transform: translateX(15px) scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.15);
+            border-color: #ffff00;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.25) 0%, rgba(255, 0, 255, 0.25) 100%);
+        }
+
+        strong {
+            color: #ffff00;
+            text-shadow: 0 0 8px #ffff00;
+            font-weight: 700;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 30px;
+            border-radius: 15px;
+            display: block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        img:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.7), 0 0 60px rgba(0, 255, 255, 0.5);
+            filter: brightness(1.2);
+        }
+
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            font-size: 20px;
+        }
+
+        .click-effect {
+            position: fixed;
+            pointer-events: none;
+            animation: explode 0.6s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        /* Glow effect on scroll */
+        .glow-on-scroll {
+            animation: glowPulse 1s ease-in-out;
+        }
+
+        @keyframes glowPulse {
+            0% { filter: drop-shadow(0 0 5px #ff00ff); }
+            50% { filter: drop-shadow(0 0 20px #00ffff); }
+            100% { filter: drop-shadow(0 0 5px #ff00ff); }
+        }
+    </style>
 </head>
 <body>
-    
+    <h1 onclick="createClickEffect(event)">No Skill Issue</h1>
+    <h2>Vietne prasmīgiem programmētājiem</h2>
+    <div class="container">
+        <ol>
+            <li onclick="createClickEffect(event)"><strong>Informācijas meklēšanas prasmes</strong> – spēja izmantot atslēgvārdus un meklētājprogrammas efektīvi.</li>
+            <li onclick="createClickEffect(event)"><strong>Kritiskā domāšana</strong> – prasme izvērtēt, vai informācija ir uzticama un patiesa.</li>
+            <li onclick="createClickEffect(event)"><strong>Digitālā pratība</strong> – izpratne par interneta rīkiem, vietnēm un tehnoloģijām.</li>
+            <li onclick="createClickEffect(event)"><strong>Pacietība</strong> – spēja neatmest meklēšanu un rūpīgi izpētīt vairākus avotus.</li>
+            <li onclick="createClickEffect(event)"><strong>Uzmanība detaļām</strong> – prasme pamanīt kļūdas, avota autoru un publicēšanas datumu.</li>
+            <li onclick="createClickEffect(event)"><strong>Pašorganizācija</strong> – spēja sakārtot atrasto informāciju un saglabāt to vēlākai izmantošanai.</li>
+        </ol>
+        <img src="0e924f91-db17-43c9-9fc8-063af7e50c2d.png" alt="sipols" onclick="createClickEffect(event)">
+    </div>
+
+    <script>
+        // Create colorful particles on click
+        function createClickEffect(event) {
+            const colors = ['#ff00ff', '#00ffff', '#ffff00', '#ff0080', '#0080ff'];
+            const x = event.clientX;
+            const y = event.clientY;
+
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'click-effect';
+                particle.textContent = ['✨', '⚡', '🎆', '💥', '🌟'][Math.floor(Math.random() * 5)];
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
+
+                const angle = (Math.PI * 2 * i) / 15;
+                const distance = Math.random() * 150 + 100;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+
+                particle.style.setProperty('--tx', tx + 'px');
+                particle.style.setProperty('--ty', ty + 'px');
+
+                document.body.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 600);
+            }
+
+            // Add shake effect to target
+            if (event.target.tagName === 'LI' || event.target.tagName === 'IMG' || event.target.tagName === 'H1') {
+                event.target.style.animation = 'none';
+                setTimeout(() => {
+                    event.target.style.animation = '';
+                }, 10);
+            }
+        }
+
+        // Create floating particles in background
+        function createBackgroundParticles() {
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.textContent = ['✨', '⚡', '💫', '🌟', '✦'][Math.floor(Math.random() * 5)];
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.color = ['#ff00ff', '#00ffff', '#ffff00'][Math.floor(Math.random() * 3)];
+                particle.style.opacity = Math.random() * 0.5 + 0.3;
+                particle.style.fontSize = (Math.random() * 30 + 15) + 'px';
+                particle.style.animation = `float ${Math.random() * 5 + 5}s infinite`;
+
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Glow effect on scroll
+        window.addEventListener('scroll', () => {
+            const elements = document.querySelectorAll('li, img');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
+                    el.classList.add('glow-on-scroll');
+                }
+            });
+        });
+
+        // Mouse follow effect for h2
+        const h2 = document.querySelector('h2');
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 10 - 5;
+            const y = (e.clientY / window.innerHeight) * 10 - 5;
+            h2.style.transform = `translate(${x}px, ${y}px)`;
+        });
+
+        // Add interactivity to list items with keyboard
+        document.querySelectorAll('li').forEach((li, index) => {
+            li.addEventListener('mouseenter', () => {
+                li.style.animation = `glow${index % 2} 0.5s ease-in-out`;
+            });
+        });
+
+        // Rainbow text effect on hover for strong tags
+        document.querySelectorAll('strong').forEach(strong => {
+            strong.addEventListener('mouseenter', function() {
+                const colors = ['#ff0000', '#ff7700', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#ff00ff'];
+                let colorIndex = 0;
+                const interval = setInterval(() => {
+                    this.style.color = colors[colorIndex % colors.length];
+                    colorIndex++;
+                }, 100);
+                
+                setTimeout(() => clearInterval(interval), 500);
+            });
+        });
+
+        // Initialize background particles
+        createBackgroundParticles();
+
+        // Create random floating particles periodically
+        setInterval(() => {
+            if (Math.random() > 0.7) createBackgroundParticles();
+        }, 3000);
+    </script>
+</body>
+</html>
 </body>
 </html>
